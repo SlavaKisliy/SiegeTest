@@ -1,0 +1,10 @@
+docker build -t yokogawa/siege .
+docker run -it yokogawa/siege bash
+
+.\PopulateLinks.ps1
+
+docker cp links.txt ec93a4891bc3:/var
+docker cp linksNewCache.txt ec93a4891bc3:/var
+
+siege -f links.txt -r20 -v -c100
+siege -f linksNewCache.txt -r20 -v -c100
